@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Task_1 {
+public class FirstTask {
     public static void main(String args[]) {
         List<Double> doubleInputList = new ArrayList<>();
         List<String> stringInputList = new ArrayList<>();
