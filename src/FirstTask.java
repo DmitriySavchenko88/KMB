@@ -3,14 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FirstTask {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         List<Double> doubleInputList = new ArrayList<>();
         List<String> stringInputList = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please, enter an arguments:");
 
-        while (Util.getInstance().isInputEndString("end")){
+        while (true){
             String argument = scanner.next();
 
             if (Util.getInstance().isNumeric(argument)) {

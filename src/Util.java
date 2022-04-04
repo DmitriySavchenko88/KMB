@@ -10,12 +10,8 @@ public final class Util {
     public boolean isNumeric(String argument) {
         return argument.matches("-?\\d+(\\.\\d+)?");
     }
-
     public boolean isInputEndString(String argument) {
-        if (argument.equalsIgnoreCase("end")) {
-            return true;
-        }
-        return false;
+        return argument.equalsIgnoreCase("end");
     }
 
     public List<String> sortingStringList(List<String> stringInputList) {
