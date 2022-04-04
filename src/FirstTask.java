@@ -10,22 +10,26 @@ public class FirstTask {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please, enter an arguments:");
 
-        while (true) {
+        while (Util.getInstance().isInputEndString("end")){
             String argument = scanner.next();
 
-            if (Util.isNumeric(argument)) {
+            if (Util.getInstance().isNumeric(argument)) {
                 doubleInputList.add(Double.parseDouble(argument));
                 System.out.println("Input number: " + argument);
-
-            } else if (!Util.isInputEndString(argument)) {
+///////////////////////////////////////////////////////////////////////////
+                //fixme
+            } else if (!Util.getInstance().isInputEndString(argument)) {
+                System.out.println("\nString arguments:");
                 stringInputList.add(argument);
                 System.out.println("Input String: " + argument);
+
+                ////////////////////////////////////////////////////////////////////////
             } else {
-                List<String> sortedStringList = Util.sortingStringList(stringInputList);
+                List<String> sortedStringList = Util.getInstance().sortingStringList(stringInputList);
                 for (String str : sortedStringList) {
                     System.out.println(str);
                 }
-                double sum = Util.calculateDouble(doubleInputList);
+                double sum = Util.getInstance().calculateDouble(doubleInputList);
                 System.out.println("\nNumber arguments sum: " + sum);
 
                 System.out.println("\nWell done :)");
