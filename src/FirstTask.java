@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,31 +11,26 @@ public class FirstTask {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please, enter an arguments:");
 
-        while (true){
-            String argument = scanner.next();
+        Util util = Util.getInstance();
+        String argument;
+        while (!(argument = scanner.next()).equalsIgnoreCase("end")){
 
-            if (Util.getInstance().isNumeric(argument)) {
+            if (util.isNumeric(argument)) {
                 doubleInputList.add(Double.parseDouble(argument));
                 System.out.println("Input number: " + argument);
-///////////////////////////////////////////////////////////////////////////
-                //fixme
-            } else if (!Util.getInstance().isInputEndString(argument)) {
-                System.out.println("\nString arguments:");
+
+            } else {
                 stringInputList.add(argument);
                 System.out.println("Input String: " + argument);
-
-                ////////////////////////////////////////////////////////////////////////
-            } else {
-                List<String> sortedStringList = Util.getInstance().sortingStringList(stringInputList);
-                for (String str : sortedStringList) {
-                    System.out.println(str);
-                }
-                double sum = Util.getInstance().calculateDouble(doubleInputList);
-                System.out.println("\nNumber arguments sum: " + sum);
-
-                System.out.println("\nWell done :)");
-                break;
             }
         }
+        stringInputList.sort(Comparator.comparingInt(String::length).reversed());
+        for (String str : stringInputList) {
+            System.out.println(str);
+        }
+        double sum = util.calculateDouble(doubleInputList);
+        System.out.println("\nNumber arguments sum: " + sum);
+
+        System.out.println("\nWell done :)");
     }
 }

@@ -1,6 +1,4 @@
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Util {
     private static Util instance;
@@ -8,20 +6,8 @@ public final class Util {
     private Util() {}
 
     public boolean isNumeric(String argument) {
+
         return argument.matches("-?\\d+(\\.\\d+)?");
-    }
-
-    public boolean isInputEndString(String argument) {
-        if (argument.equalsIgnoreCase("end")) {
-            return true;
-        }
-        return false;
-    }
-
-    public List<String> sortingStringList(List<String> stringInputList) {
-        return stringInputList.stream()
-                .sorted(Comparator.comparingInt(String::length).reversed())
-                .collect(Collectors.toList());
     }
 
     public double calculateDouble(List<Double> doubleInputList) {
