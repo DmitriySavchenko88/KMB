@@ -1,9 +1,12 @@
+package com.aimprosoft;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class FirstTask {
+
+public class StringReader {
     public static void main(String[] args) {
         List<Double> doubleInputList = new ArrayList<>();
         List<String> stringInputList = new ArrayList<>();
@@ -11,11 +14,10 @@ public class FirstTask {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please, enter an arguments:");
 
-        Util util = Util.getInstance();
         String argument;
         while (!(argument = scanner.next()).equalsIgnoreCase("end")){
 
-            if (util.isNumeric(argument)) {
+            if (Util.isNumeric(argument)) {
                 doubleInputList.add(Double.parseDouble(argument));
                 System.out.println("Input number: " + argument);
 
@@ -28,7 +30,7 @@ public class FirstTask {
         for (String str : stringInputList) {
             System.out.println(str);
         }
-        double sum = util.calculateDouble(doubleInputList);
+        double sum = Util.calculateDouble(doubleInputList);
         System.out.println("\nNumber arguments sum: " + sum);
 
         System.out.println("\nWell done :)");
