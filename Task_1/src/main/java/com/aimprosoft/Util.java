@@ -1,4 +1,4 @@
-package com.aimrposoft;
+package com.aimprosoft;
 
 import java.util.List;
 

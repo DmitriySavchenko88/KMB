@@ -1,4 +1,4 @@
-package com.aimrposoft;
+package com.aimprosoft;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,8 +31,8 @@ public class StringReader {
             System.out.println(str);
         }
         double sum = Util.calculateDouble(doubleInputList);
-        System.out.println("\nNumber arguments sum: " + sum);
+        System.out.println("Number arguments sum: " + sum);
 
-        System.out.println("\nWell done :)");
+        System.out.println("Well done :)");
     }
 }
