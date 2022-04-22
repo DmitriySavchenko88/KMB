@@ -37,12 +37,8 @@ public class CardsManager {
                         int endYear = Integer.parseInt(reader.readLine());
                         int endMonth = Integer.parseInt(reader.readLine());
 
-                        Card card = new Card();
-                        card.setCardNumber(cardNumber);
-                        card.setName(name);
-                        card.setBank(bank);
-                        card.setEndYear(endYear);
-                        card.setEndMonth(endMonth);
+                        Card card = new Card(cardNumber, name, bank, endYear, endMonth);
+
 
                         list.add(card);
 
@@ -70,24 +66,12 @@ public class CardsManager {
     }
 
     private static void populateTestData(List<Card> list) {
-        Card card_1 = new Card();
-        card_1.setCardNumber(1234123412341234L);
-        card_1.setName("Vasil");
-        card_1.setBank("Privat");
-        card_1.setEndMonth(12);
-        card_1.setEndYear(2023);
-        Card card_2 = new Card();
-        card_2.setCardNumber(1234123412341235L);
-        card_2.setName("Masha");
-        card_2.setBank("Privat");
-        card_2.setEndMonth(3);
-        card_2.setEndYear(2025);
-        Card card_3 = new Card();
-        card_3.setCardNumber(1234123412341236L);
-        card_3.setName("Natasha");
-        card_3.setBank("UkrSib");
-        card_3.setEndMonth(7);
-        card_3.setEndYear(2028);
+        Card card_1 = new Card(1234123412341234L, "Vasil", "Privat", 12, 2023);
+
+        Card card_2 = new Card(1234123412341235L, "Masha", "Privat", 3, 2025);
+
+        Card card_3 = new Card(1234123412341236L, "Natasha", "UkrSib", 7, 2028);
+
         list.add(card_1);
         list.add(card_2);
         list.add(card_3);

@@ -23,41 +23,28 @@ public class Card {
         return cardNumber;
     }
 
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getBank() {
         return bank;
     }
 
-    public void setBank(String bank) {
-        this.bank = bank;
-    }
+
 
     public int getEndYear() {
         return endYear;
     }
 
-    public void setEndYear(int endYear) {
-        this.endYear = endYear;
-    }
 
     public int getEndMonth() {
         return endMonth;
     }
 
-    public void setEndMonth(int endMonth) {
-        this.endMonth = endMonth;
-    }
+
 
     @Override
     public String toString() {
