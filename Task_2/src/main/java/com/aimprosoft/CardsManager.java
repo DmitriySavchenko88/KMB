@@ -23,15 +23,14 @@ public class CardsManager {
             String command = reader.readLine();
             switch (command) {
                 case "printCards": {
-                    for (int i = 0; i < list.size(); i++) {
-                        Card card = list.get(i);
+                    for (Card card : list) {
                         System.out.println(card);
                     }
                     break;
                 }
                 case "addNewCard": {
                     long cardNumber = Long.parseLong(reader.readLine());
-                    if (!isCardNumberExist(cardNumber, list)) {
+                    if (list.stream().noneMatch(card -> card.getCardNumber() == cardNumber)) {
                         String name = reader.readLine();
                         String bank = reader.readLine();
                         int endYear = Integer.parseInt(reader.readLine());
@@ -50,8 +49,7 @@ public class CardsManager {
                 }
                 case "search": {
                     String nameBank = reader.readLine();
-                    for (int i = 0; i < list.size(); i++) {
-                        Card card = list.get(i);
+                    for (Card card : list) {
                         if (Objects.equals(nameBank, card.getBank())) {
                             System.out.println(card);
 
@@ -66,27 +64,14 @@ public class CardsManager {
     }
 
     private static void populateTestData(List<Card> list) {
-        Card card_1 = new Card(1234123412341234L, "Vasil", "Privat", 12, 2023);
+        Card cardOne = new Card(1234123412341234L, "Vasil", "Privat", 12, 2023);
 
-        Card card_2 = new Card(1234123412341235L, "Masha", "Privat", 3, 2025);
+        Card cardTwo = new Card(1234123412341235L, "Masha", "Privat", 3, 2025);
 
-        Card card_3 = new Card(1234123412341236L, "Natasha", "UkrSib", 7, 2028);
+        Card cardThree = new Card(1234123412341236L, "Natasha", "UkrSib", 7, 2028);
 
-        list.add(card_1);
-        list.add(card_2);
-        list.add(card_3);
+        list.add(cardOne);
+        list.add(cardTwo);
+        list.add(cardThree);
     }
-
-    private static boolean isCardNumberExist(long cardNumber, List<Card> list) {
-        boolean isExist = false;
-        for (int i = 0; i < list.size(); i++) {
-            Card card = list.get(i);
-            if (card.getCardNumber() == cardNumber) {
-                isExist = true;
-                break;
-            }
-        }
-        return isExist;
-    }
-
 }
