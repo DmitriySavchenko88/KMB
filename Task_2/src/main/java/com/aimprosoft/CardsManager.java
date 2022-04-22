@@ -18,7 +18,10 @@ public class CardsManager {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        while (true) {
+        boolean isContinue = true;
+
+        while (isContinue) {
+
             System.out.println("Enter command: ");
             String command = reader.readLine();
             switch (command) {
@@ -49,19 +52,20 @@ public class CardsManager {
                 }
                 case "search": {
                     String nameBank = reader.readLine();
-                    for (Card card : list) {
-                        if (Objects.equals(nameBank, card.getBank())) {
-                            System.out.println(card);
 
-                        }
-
-                    }
+                    list.stream()
+                            .filter(card -> nameBank.equals(card.getBank()))
+                            .forEach(card -> System.out.println(card));
                     break;
                 }
-
+                case "EXIT": {
+                    isContinue = false;
+                    break;
+                }
             }
         }
     }
+
 
     private static void populateTestData(List<Card> list) {
         Card cardOne = new Card(1234123412341234L, "Vasil", "Privat", 12, 2023);
