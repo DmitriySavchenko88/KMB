@@ -9,9 +9,8 @@ public class Card {
     private int endYear;
     private int endMonth;
 
-    public Card(){}
 
-    public Card (long cardNumber, String name, String bank, int endYear, int endMonth ){
+    public Card(long cardNumber, String name, String bank, int endYear, int endMonth) {
         this.cardNumber = cardNumber;
         this.name = name;
         this.bank = bank;
@@ -63,7 +62,7 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "num= " + cardNumber +", name= " + name +
+                "num= " + cardNumber + ", name= " + name +
                 ", bank= " + bank + ", endYear= " + endYear + ", endMonth= " + endMonth +
                 '}';
     }
