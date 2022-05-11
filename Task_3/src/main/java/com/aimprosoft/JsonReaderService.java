@@ -1,8 +1,6 @@
 package com.aimprosoft;
 
-
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,9 +10,14 @@ public class JsonReaderService extends AbstractReaderService<JSONObject> {
     private JSONObject content;
 
     @Override
-    public void read() throws IOException {
-        String fileName = getFilePath();
-        String fileContent = Files.lines(Paths.get(fileName)).collect(Collectors.joining(System.lineSeparator()));
+    public void read() {
+        String filePath = getFilePath();
+        String fileContent = null;
+        try {
+            fileContent = Files.lines(Paths.get(filePath)).collect(Collectors.joining(System.lineSeparator()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         content = new JSONObject(fileContent);
     }
 
@@ -24,12 +27,12 @@ public class JsonReaderService extends AbstractReaderService<JSONObject> {
 
     }
 
-    private JSONObject createJSONObject(String jsonString){
+    private JSONObject createJSONObject(String jsonString) {
         return new JSONObject(jsonString);
     }
 
     @Override
-    JSONObject getContent() {
+    public JSONObject getContent() {
 
         return content;
     }

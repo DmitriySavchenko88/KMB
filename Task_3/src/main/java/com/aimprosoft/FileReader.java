@@ -14,15 +14,20 @@ public class FileReader {
         String path = reader.readLine();
         String extension = Utils.getFileExtension(path);
 
-        ReaderService readerService;
-        if (Objects.equals(extension, "txt")) {
+        ReaderService readerService = null;
+        if ("txt".equals(extension)) {
             readerService = new TxtReaderService();
-        } else {
+        } else if ("json".equals(extension)) {
             readerService = new JsonReaderService();
         }
-        readerService.setFilePath(path);
-        readerService.read();
-        readerService.printContent();
+
+        if (readerService != null) {
+            readerService.setFilePath(path);
+            readerService.read();
+            readerService.printContent();
+        } else {
+            System.out.println("Unknown extension");
+        }
 
     }
 }

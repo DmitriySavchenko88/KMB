@@ -11,9 +11,16 @@ public class TxtReaderService extends AbstractReaderService<String> {
     private String content;
 
     @Override
-    public void read() throws IOException {
-        String fileName = getFilePath();
-        content = Files.lines(Paths.get(fileName)).collect(Collectors.joining(System.lineSeparator()));
+    public void read() {
+
+        String filePath = getFilePath();
+        try {
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
@@ -22,9 +29,9 @@ public class TxtReaderService extends AbstractReaderService<String> {
     }
 
     @Override
-    String getContent() {
+    public String getContent() {
 
-        return content ;
+        return content;
     }
 }
 
