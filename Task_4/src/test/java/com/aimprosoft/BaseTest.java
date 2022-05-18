@@ -1,6 +1,6 @@
-package ui_tests;
+package com.aimprosoft;
 
-import com.driver_manager.DriverManager;
+import com.aimprosoft.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 

@@ -1,4 +1,4 @@
-package ui_tests;
+package com.aimprosoft;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
