@@ -1,6 +1,7 @@
 package com.aimprosoft;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -8,14 +9,16 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void checkGoogleStartPage() {
-        String text = "Как научить голубя убивать русню?";
+        String originalText = "Как научить голубя убивать русню?";
 
         driver.get("https://www.google.com");
-        driver.findElement(By.xpath("//input[contains(@class,\"gLFyf gsfi\")]")).sendKeys(text);
-        driver.findElement(By.xpath("//div[@class=\"iblpc\"]")).click();
+        WebElement input = driver.findElement(By.xpath("//form[contains(@action, \"/search\")]//input[not(contains(@type, \"submit\"))]"));
+        input.sendKeys(originalText);
+        input.sendKeys("\n");
+        String titleText = driver.findElement(By.xpath("//title")).getAttribute("innerText");
+        String text = titleText.substring(0, titleText.length() - 15);
+        Assert.assertEquals(originalText, text);
 
-        String value = driver.findElement(By.xpath("//input[contains(@class,\"gLFyf gsfi\")]")).getAttribute("value");
-        Assert.assertEquals(text, value);
     }
 
 }
