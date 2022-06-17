@@ -3,23 +3,23 @@
 
 <div class="description">
 CSS  .description 
-XPath  //div[contains(@class, 'description') and contains(., 'A Liferay portlet')]
+XPath  //div[@class='description']
 
 <div class="white-box">
 CSS  .white-box 
 XPath  //div[@class = ‘white-box’]
 
 <h3>Portlet Themes Switcher</h3>
-CSS  div:nth-child(2) > div > a > h3
+CSS  .white-box h3
 XPath  //h3[contains(text(),'Portlet Themes Switcher')]
 
 <span>Hop Hey, La la ley</span> - не используя поиск по тексту.
-CSS  .white-box span:nth-child(2)
-XPath  .//span[not(following-sibling::*)]
+CSS  span:nth-child(2)
+XPath  //div[@id='i_love_selectors']/following-sibling::span
 
 <span>I'm your father</span> - не используя поиск по тексту.
-CSS  .white-box1 span:first-child
-XPath  .//span[not(preceding-sibling::*)]
+CSS  span:first-child
+XPath  //div[@class='i_love_selectors very_match']/preceding-sibling::span
 
 <td>3</td>
 CSS  #apulaz td:nth-of-type(3)
