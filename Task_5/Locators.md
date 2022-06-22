@@ -14,11 +14,11 @@ CSS  .white-box h3
 XPath  //h3[contains(text(),'Portlet Themes Switcher')]
 
 <span>Hop Hey, La la ley</span> - не используя поиск по тексту.
-CSS  span:nth-child(2)
+CSS  #i_love_selectors ~span
 XPath  //div[@id='i_love_selectors']/following-sibling::span
 
 <span>I'm your father</span> - не используя поиск по тексту.
-CSS  span:first-child
+CSS  .white-box1 span
 XPath  //div[@class='i_love_selectors very_match']/preceding-sibling::span
 
 <td>3</td>
