@@ -9,15 +9,15 @@ public class MainPage extends AbstractPage {
 
     public static final String TITLE = "Electronics Site | Homepage";
 
-    public static final By WELCOME_MESSAGE_BY = By.xpath("//*[contains(text(), 'Welcome Dmytro')]");
+    public static final By WELCOME_MESSAGE_BY = By.xpath("//*[contains(text(), 'Welcome Savchenko')]");
 
     public MainPage(WebDriver driver) {
         super(driver);
-        driver.get("https://electronics-2005.aimprosoft.com/electronics/en");
     }
 
-
-
+    public void goToMainPage(){
+        driver.get("https://electronics-2005.aimprosoft.com/electronics/en");
+    }
 
     public By signInButton = By.xpath("//a[contains(text(),'Register')]");
 

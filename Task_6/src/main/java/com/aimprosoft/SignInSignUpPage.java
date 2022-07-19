@@ -56,7 +56,8 @@ public class SignInSignUpPage extends AbstractPage {
         return this;
     }
     public SignInSignUpPage enterEmail() {
-        driver.findElement(emailField).sendKeys("Saveliy@gmail.com");
+        String email = Math.random() + "Qwerty@gmail.com";
+        driver.findElement(emailField).sendKeys(email);
         return this;
     }
 
@@ -78,14 +79,14 @@ public class SignInSignUpPage extends AbstractPage {
 
 
     //Log In
-    public SignInSignUpPage enterUserEmail() {
-        driver.findElement(userEmail).sendKeys("Saveliy.kramarov666@gmail.com");
-        return this;
+    public MainPage enterUserEmail() {
+        driver.findElement(userEmail).sendKeys("savchenko@mail.ru");
+        return new MainPage(driver);
     }
 
-    public SignInSignUpPage enterUserPass() {
-        driver.findElement(userPass).sendKeys("paparazi29918");
-        return this;
+    public MainPage enterUserPass() {
+        driver.findElement(userPass).sendKeys("471666");
+        return new MainPage(driver);
     }
 
     public SignInSignUpPage enterIncorrectUserPass() {
@@ -94,9 +95,8 @@ public class SignInSignUpPage extends AbstractPage {
     }
 
 
-    public MainPage clickLogInButton() {
+    public void clickLogInButton() {
         driver.findElement(logInButton).click();
-        return new MainPage(driver);
     }
 
     public SignInSignUpPage clickRegistrationButton() {
@@ -113,7 +113,7 @@ public class SignInSignUpPage extends AbstractPage {
         enterPassword();
         confirmPassword();
         clickOnCheckBoxTerms();
-        clickLogInButton();
+        clickRegistrationButton();
         return this;
     }
     public MainPage registerWithValidData() {
@@ -124,7 +124,7 @@ public class SignInSignUpPage extends AbstractPage {
         enterPassword();
         confirmPassword();
         clickOnCheckBoxTerms();
-        clickLogInButton();
+        clickRegistrationButton();
         return new MainPage(driver);
     }
 
@@ -145,8 +145,8 @@ public class SignInSignUpPage extends AbstractPage {
     }
 
 
-    public String getErrorText() {
-        return driver.findElement(errorTextLogIn).getText();
+    public WebElement getErrorText() {
+        return driver.findElement(errorTextLogIn);
     }
 
     public String getReturningCustomerText() {

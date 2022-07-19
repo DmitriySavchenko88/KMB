@@ -3,9 +3,12 @@ package com.aimprosoft;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class MainTestClass {
@@ -44,6 +47,7 @@ public class MainTestClass {
         System.out.println("Go to Sign In Page");
 
         MainPage mainPage = new MainPage(driver);
+        mainPage.goToMainPage();
         Assert.assertEquals(mainPage.getTitle(), MainPage.TITLE);
 
         SignInSignUpPage signInSignUpPage = mainPage.goToSignIn();
@@ -55,6 +59,7 @@ public class MainTestClass {
     @Test
     void logInWithValidData() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.goToMainPage();
         SignInSignUpPage signInSignUpPage = mainPage.goToSignIn();
         System.out.println("Log In with Valid DATA");
 
@@ -62,12 +67,17 @@ public class MainTestClass {
         Assert.assertNotNull(loggedInMainPage.getWelcomeMassageElement());
 
     }
+
     @Test
     void logInWithInValidData() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.goToMainPage();
         SignInSignUpPage signInSignUpPage = mainPage.goToSignIn();
-        System.out.println("Log In with Valid DATA");
+        System.out.println("Log In with INVALID DATA");
         SignInSignUpPage loggedInMainPage = signInSignUpPage.logInWithIncorrectData();
+        WebDriverWait wait = (new WebDriverWait(driver, Duration.ofSeconds(10)));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'alert alert-danger alert-dismissable getAccAlert']")));
+
         Assert.assertNotNull(signInSignUpPage.getErrorText());
 
     }
@@ -75,16 +85,19 @@ public class MainTestClass {
     @Test
     void registrationWithExistsEmail() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.goToMainPage();
         SignInSignUpPage signInSignUpPage = mainPage.goToSignIn();
         System.out.println("Registering with a registered email");
         SignInSignUpPage registrationPage = signInSignUpPage.registerWithExistingEmail();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebDriverWait wait = (new WebDriverWait(driver, Duration.ofSeconds(10)));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='An account already exists for this email address.']")));
         Assert.assertNotNull(registrationPage.getAccountExistErrorElement());
     }
 
     @Test
     void registrationWithValidEmail() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.goToMainPage();
         SignInSignUpPage signInSignUpPage = mainPage.goToSignIn();
         System.out.println("Registering with a NEW email");
         driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);

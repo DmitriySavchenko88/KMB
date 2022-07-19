@@ -20,4 +20,6 @@ public abstract class AbstractPage {
     public String getTitle() {
         return driver.getTitle();
     }
+
+
 }
