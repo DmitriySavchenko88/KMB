@@ -4,10 +4,10 @@
 <test name="Regression">
     <classes>
         <class name="com.aimprosoft.SignInSignUpPage"/>
-        <class name="com.aimprosoft.MainTestClass"/>
         <class name="com.aimprosoft.MainPage"/>
 
     </classes>
 </test>
+    <test name="com.aimprosoft.LoginTest"/>
 
 </suite>

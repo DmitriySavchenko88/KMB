@@ -6,69 +6,69 @@ import org.openqa.selenium.WebElement;
 
 public class SignInSignUpPage extends AbstractPage {
 
-    public static final String LOGIN_HEADLINE = "Returning Customer";
+
+    //Registration
+    private static final By firstNameField = By.xpath("//input[@id = 'register.firstName']");
+    private static final By lastNameField = By.xpath("//input[@id = 'register.lastName']");
+    private static final By emailField = By.xpath("//input[@id = 'register.email']");
+    private static final By passwordField = By.xpath("//input[@id = 'password']");
+    private static final By confirmPasswordField = By.xpath("//input[@id = 'register.checkPwd']");
+    private static final By errorTextLogIn = By.xpath("//div[@class = 'alert alert-danger alert-dismissable getAccAlert']");
+
+    private static final By checkboxTermsConditions = By.xpath(" //input[@id = 'registerChkTermsConditions']");
+    private final By registrationButton = By.xpath("//div/button[@type='submit']");
+    private static final By textReturningCustomer = By.xpath("//*[contains(text(), 'Returning Customer')] ");
+    private static final By accountAlreadyExist = By.xpath("//span[text()='An account already exists for this email address.']");
+
+
+    //Log in
+    private static final By userEmail = By.xpath("//input[@id = 'j_username']");
+    private static final By userPass = By.xpath("//input[@id = 'j_password']");
+    private static final By logInButton = By.xpath("//form/button[@type='submit']");
+
 
     public SignInSignUpPage(WebDriver driver) {
 
         super(driver);
     }
 
-    public SignInSignUpPage goTosignInSignUpPage (WebDriver driver) {
+    public SignInSignUpPage goToSignInSignUpPage(WebDriver driver) {
         driver.get("https://electronics-2005.aimprosoft.com/electronics/en/login");
         return new SignInSignUpPage(driver);
     }
 
     //Registration
-    private By firstNameField = By.xpath("//input[@id = 'register.firstName']");
-    private By lastNameField = By.xpath("//input[@id = 'register.lastName']");
-    private By emailField = By.xpath("//input[@id = 'register.email']");
-    private By passwordField = By.xpath("//input[@id = 'password']");
-    private By confirmPasswordField = By.xpath("//input[@id = 'register.checkPwd']");
-    private By errorTextLogIn = By.xpath("//div[@class = 'alert alert-danger alert-dismissable getAccAlert']");
+    public SignInSignUpPage enterFirstName(String firstName) {
 
-    private By checkboxTermsConditions = By.xpath(" //input[@id = 'registerChkTermsConditions']");
-    private final By registrationButton = By.xpath("//div/button[@type='submit']");
-    private By textReturningCustomer = By.xpath("//*[contains(text(), 'Returning Customer')] ");
-    private By accountAlreadyExist = By.xpath("//span[text()='An account already exists for this email address.']");
-
-
-    //Log in
-    private By userEmail = By.xpath("//input[@id = 'j_username']");
-    private By userPass = By.xpath("//input[@id = 'j_password']");
-    private final By logInButton = By.xpath("//form/button[@type='submit']");
-
-
-    //Registration
-    public SignInSignUpPage enterFirstName() {
-
-        driver.findElement(firstNameField).sendKeys("Savchenko");
+        driver.findElement(firstNameField).sendKeys(firstName);
         return this;
     }
 
-    public SignInSignUpPage enterLastName() {
-        driver.findElement(lastNameField).sendKeys("Dmytro");
+    public SignInSignUpPage enterLastName(String lastName) {
+        driver.findElement(lastNameField).sendKeys(lastName);
         return this;
 
     }
 
-    public SignInSignUpPage enterExistingEmail() {
-        driver.findElement(emailField).sendKeys("Saveliy.kramarov666@gmail.com");
+    public SignInSignUpPage enterExistingEmail(String existingEmail) {
+        driver.findElement(emailField).sendKeys(existingEmail);
         return this;
     }
+
     public SignInSignUpPage enterEmail() {
         String email = Math.random() + "Qwerty@gmail.com";
         driver.findElement(emailField).sendKeys(email);
         return this;
     }
 
-    public SignInSignUpPage enterPassword() {
-        driver.findElement(passwordField).sendKeys("paparazi29918");
+    public SignInSignUpPage enterPassword(String password) {
+        driver.findElement(passwordField).sendKeys(password);
         return this;
     }
 
 
-    public SignInSignUpPage confirmPassword() {
-        driver.findElement(confirmPasswordField).sendKeys("paparazi29918");
+    public SignInSignUpPage confirmPassword(String confirmPassword) {
+        driver.findElement(confirmPasswordField).sendKeys(confirmPassword);
         return this;
     }
 
@@ -79,81 +79,38 @@ public class SignInSignUpPage extends AbstractPage {
 
 
     //Log In
-    public MainPage enterUserEmail() {
-        driver.findElement(userEmail).sendKeys("savchenko@mail.ru");
+    public MainPage enterUserEmail(String usersEmail) {
+        driver.findElement(userEmail).sendKeys(usersEmail);
         return new MainPage(driver);
     }
 
-    public MainPage enterUserPass() {
-        driver.findElement(userPass).sendKeys("471666");
+    public MainPage enterUserPass(String userPassword) {
+        driver.findElement(userPass).sendKeys(userPassword);
         return new MainPage(driver);
     }
 
-    public SignInSignUpPage enterIncorrectUserPass() {
-        driver.findElement(userPass).sendKeys("132132132132");
-        return this;
-    }
 
-
-    public void clickLogInButton() {
+    public void clickOnLogInButton() {
         driver.findElement(logInButton).click();
     }
 
-    public SignInSignUpPage clickRegistrationButton() {
+    public SignInSignUpPage clickOnRegistrationButton() {
         driver.findElement(registrationButton).click();
         return new SignInSignUpPage(driver);
     }
 
 
-    public SignInSignUpPage registerWithExistingEmail() {
-
-        enterFirstName();
-        enterLastName();
-        enterExistingEmail();
-        enterPassword();
-        confirmPassword();
-        clickOnCheckBoxTerms();
-        clickRegistrationButton();
-        return this;
-    }
-    public MainPage registerWithValidData() {
-
-        enterFirstName();
-        enterLastName();
-        enterEmail();
-        enterPassword();
-        confirmPassword();
-        clickOnCheckBoxTerms();
-        clickRegistrationButton();
-        return new MainPage(driver);
-    }
-
-    public MainPage logIn() {
-        enterUserEmail();
-        enterUserPass();
-        clickLogInButton();
-        return new MainPage(driver);
-    }
 
 
-    public SignInSignUpPage logInWithIncorrectData() {
-
-        this.enterUserEmail();
-        this.enterIncorrectUserPass();
-        this.clickLogInButton();
-        return this;
-    }
-
-
-    public WebElement getErrorText() {
-        return driver.findElement(errorTextLogIn);
+    public String getErrorText() {
+        return driver.findElement(errorTextLogIn).getText();
     }
 
     public String getReturningCustomerText() {
         return driver.findElement(textReturningCustomer).getText();
     }
 
-    public WebElement getAccountExistErrorElement() {
-        return driver.findElement(accountAlreadyExist);
+    public String getAccountExistErrorElement() {
+        return driver.findElement(accountAlreadyExist).getText();
     }
 }
