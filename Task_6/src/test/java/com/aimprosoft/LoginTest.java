@@ -9,57 +9,51 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class LoginTest {
     private WebDriver driver;
-
-
-    @BeforeMethod
-    void initializeWebDriver() {
-
-        driver = TestUtils.getWebDriver("chrome");
-    }
+    private MainPage mainPage;
+    private SignInSignUpPage signInSignUpPage;
 
     @AfterMethod
     void closeBrowser() {
-
         driver.quit();
+    }
+
+    @BeforeClass
+    public void initPages() {
+        driver = new ReusableWebDriver(() -> TestUtils.getWebDriver("chrome"));
+        mainPage = new MainPage(driver);
+        signInSignUpPage = new SignInSignUpPage(driver);
     }
 
 
     @Test
     private void goToSignInPage() {
         System.out.println("Go to Sign In Page");
-
-        MainPage mainPage = new MainPage(driver);
         mainPage.goToMainPage();
         mainPage.goToSignIn();
-        SignInSignUpPage signInSignUpPage = new SignInSignUpPage(driver);
         Assert.assertEquals(signInSignUpPage.getReturningCustomerText(), "Returning Customer");
     }
 
     @Test
     private void logInWithValidData() {
-        MainPage mainPage = new MainPage(driver);
         mainPage.goToMainPage();
         mainPage.goToSignIn();
-        SignInSignUpPage signInSignUpPage = new SignInSignUpPage(driver);
         System.out.println("Log In with Valid DATA");
-
-        MainPage loggedInMainPage = new MainPage(driver);
         signInSignUpPage.enterUserEmail("savchenko@mail.ru");
         signInSignUpPage.enterUserPass("471666");
         signInSignUpPage.clickOnLogInButton();
-        Assert.assertNotNull(loggedInMainPage.getWelcomeMassageElement());
+        Assert.assertNotNull(mainPage.getWelcomeMassageElement());
 
     }
 
     @Test
     private void logInWithInValidData() {
-        MainPage mainPage = new MainPage(driver);
+
         mainPage.goToMainPage();
         mainPage.goToSignIn();
-        SignInSignUpPage signInSignUpPage = new SignInSignUpPage(driver);
         System.out.println("Log In with INVALID DATA");
         signInSignUpPage.enterUserEmail("savchenko@mail.ru");
         signInSignUpPage.enterPassword("132132132132");
@@ -73,12 +67,10 @@ public class LoginTest {
 
     @Test
     private void registrationWithExistsEmail() {
-        MainPage mainPage = new MainPage(driver);
+
         mainPage.goToMainPage();
         mainPage.goToSignIn();
-        SignInSignUpPage signInSignUpPage = new SignInSignUpPage(driver);
         System.out.println("Registering with a registered email");
-        SignInSignUpPage registrationPage = new SignInSignUpPage(driver);
         signInSignUpPage.enterFirstName("Savchenko");
         signInSignUpPage.enterLastName("Dmytro");
         signInSignUpPage.enterExistingEmail("Saveliy.kramarov666@gmail.com");
@@ -88,17 +80,15 @@ public class LoginTest {
         signInSignUpPage.clickOnRegistrationButton();
         WebDriverWait wait = (new WebDriverWait(driver, Duration.ofSeconds(10)));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='An account already exists for this email address.']")));
-        Assert.assertNotNull(registrationPage.getAccountExistErrorElement());
+        Assert.assertNotNull(signInSignUpPage.getAccountExistErrorElement());
     }
 
     @Test
     private void registrationWithValidEmail() {
-        MainPage mainPage = new MainPage(driver);
+
         mainPage.goToMainPage();
         mainPage.goToSignIn();
-        SignInSignUpPage signInSignUpPage = new SignInSignUpPage(driver);
         System.out.println("Registering with a NEW email");
-        MainPage loggedInMainPage = new MainPage(driver);
         signInSignUpPage.enterFirstName("Savchenko");
         signInSignUpPage.enterLastName("Dmytro");
         signInSignUpPage.enterEmail();
@@ -107,6 +97,6 @@ public class LoginTest {
         signInSignUpPage.clickOnCheckBoxTerms();
         signInSignUpPage.clickOnRegistrationButton();
 
-        Assert.assertNotNull(loggedInMainPage.getWelcomeMassageElement());
+        Assert.assertNotNull(mainPage.getWelcomeMassageElement());
     }
 }

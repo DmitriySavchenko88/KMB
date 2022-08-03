@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name = "Sign in Sign Up page" configfailurepolicy="continue" parallel="classes" thread-count="2">
-<test name="Regression">
-    <classes>
-        <class name="com.aimprosoft.SignInSignUpPage"/>
-        <class name="com.aimprosoft.MainPage"/>
+<suite name="Sign in Sign Up page" configfailurepolicy="continue" parallel="classes" thread-count="2">
+    <test name="Regression">
+        <classes>
+            <class name="com.aimprosoft.LoginTest"/>
+        </classes>
+    </test>
 
-    </classes>
-</test>
-    <test name="com.aimprosoft.LoginTest"/>
 
 </suite>

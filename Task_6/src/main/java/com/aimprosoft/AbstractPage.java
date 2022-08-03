@@ -17,17 +17,6 @@ public abstract class AbstractPage {
     public String getTitle() {
         return driver.getTitle();
     }
-    WebDriver getWebDriver(String browserName) {
-        switch (browserName) {
-            case "chrome":
-                System.setProperty("webdriver.chrome.driver", "/home/dima/IdeaProjects/newFolder/chromedriver");
-                return new ChromeDriver();
 
-            default:
-                throw new RuntimeException("Incorrect BrowserName");
-
-        }
-
-    }
 
 }

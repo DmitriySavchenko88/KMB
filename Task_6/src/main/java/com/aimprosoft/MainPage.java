@@ -6,12 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class MainPage extends AbstractPage {
+    public static final By SIGN_IN_BUTTON = By.xpath("//a[contains(text(),'Register')]");
 
     public WebElement getWelcomeMassageElement() {
         return driver.findElement(By.xpath("//li[@class = 'logged_in js-logged_in']"));
     }
-
-    public static final By signInButton = By.xpath("//a[contains(text(),'Register')]");
 
 
     public void goToMainPage() {
@@ -23,7 +22,7 @@ public class MainPage extends AbstractPage {
     }
 
     public void goToSignIn() {
-        WebElement ele = driver.findElement(signInButton);
+        WebElement ele = driver.findElement(SIGN_IN_BUTTON);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", ele);
     }

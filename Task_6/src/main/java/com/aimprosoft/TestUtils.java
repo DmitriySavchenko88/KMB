@@ -11,7 +11,7 @@ public class TestUtils {
                 return new ChromeDriver();
 
             default:
-                throw new RuntimeException("Incorrect BrowserName");
+                throw new IllegalArgumentException("Incorrect BrowserName");
 
         }
 
