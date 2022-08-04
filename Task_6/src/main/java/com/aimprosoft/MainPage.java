@@ -22,10 +22,7 @@ public class MainPage extends AbstractPage {
     }
 
     public void goToSignIn() {
-        WebElement ele = driver.findElement(SIGN_IN_BUTTON);
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", ele);
+        driver.get("https://electronics-2005.aimprosoft.com/electronics/en/login");
+
     }
-
-
 }

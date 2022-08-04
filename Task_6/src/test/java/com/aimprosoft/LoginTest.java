@@ -18,12 +18,12 @@ public class LoginTest {
 
     @AfterMethod
     void closeBrowser() {
-        driver.quit();
+        driver.manage().deleteAllCookies();
     }
 
     @BeforeClass
     public void initPages() {
-        driver = new ReusableWebDriver(() -> TestUtils.getWebDriver("chrome"));
+        driver = TestUtils.getWebDriver("chrome");
         mainPage = new MainPage(driver);
         signInSignUpPage = new SignInSignUpPage(driver);
     }
