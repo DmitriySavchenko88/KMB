@@ -31,10 +31,6 @@ public class SignInSignUpPage extends AbstractPage {
         super(driver);
     }
 
-    public void goToSignInSignUpPage(WebDriver driver) {
-        driver.get("https://electronics-2005.aimprosoft.com/electronics/en/login");
-
-    }
 
     //Registration
     public void enterFirstName(String firstName) {
@@ -107,7 +103,7 @@ public class SignInSignUpPage extends AbstractPage {
         return driver.findElement(TEXT_RETURNING_CUSTOMER).getText();
     }
 
-    public String getAccountExistErrorElement() {
+    public String getAccountExistError() {
         return driver.findElement(ACCOUNT_ALREADY_EXIST).getText();
     }
 }

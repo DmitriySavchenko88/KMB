@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class MainPage extends AbstractPage {
-    public static final By SIGN_IN_BUTTON = By.xpath("//a[contains(text(),'Register')]");
+    private static final By WELCOME_MASSAGE = By.xpath("//li[@class = 'logged_in js-logged_in']");
 
     public WebElement getWelcomeMassageElement() {
-        return driver.findElement(By.xpath("//li[@class = 'logged_in js-logged_in']"));
+        return driver.findElement(WELCOME_MASSAGE);
     }
 
 
     public void goToMainPage() {
-        driver.get("https://electronics-2005.aimprosoft.com/electronics/en");
+        driver.get(BASIC_URL);
     }
 
     public MainPage(WebDriver driver) {
@@ -22,7 +22,7 @@ public class MainPage extends AbstractPage {
     }
 
     public void goToSignIn() {
-        driver.get("https://electronics-2005.aimprosoft.com/electronics/en/login");
+        driver.get(BASIC_URL + "/login");
 
     }
 }

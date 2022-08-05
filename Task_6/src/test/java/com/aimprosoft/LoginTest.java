@@ -8,39 +8,44 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 public class LoginTest {
     private WebDriver driver;
     private MainPage mainPage;
     private SignInSignUpPage signInSignUpPage;
 
+    @BeforeMethod
+    public void goToSignIn(){
+            mainPage.goToMainPage();
+            mainPage.goToSignIn();
+    }
     @AfterMethod
-    void closeBrowser() {
+    public void closeBrowser() {
         driver.manage().deleteAllCookies();
     }
 
+
     @BeforeClass
+    @Parameters({"browser"})
+
     public void initPages() {
-        driver = TestUtils.getWebDriver("chrome");
+        driver = WebDriverUtils.getWebDriver("chrome");
         mainPage = new MainPage(driver);
         signInSignUpPage = new SignInSignUpPage(driver);
+
     }
 
 
     @Test
     private void goToSignInPage() {
         System.out.println("Go to Sign In Page");
-        mainPage.goToMainPage();
-        mainPage.goToSignIn();
+
         Assert.assertEquals(signInSignUpPage.getReturningCustomerText(), "Returning Customer");
     }
 
     @Test
     private void logInWithValidData() {
-        mainPage.goToMainPage();
-        mainPage.goToSignIn();
+
         System.out.println("Log In with Valid DATA");
         signInSignUpPage.enterUserEmail("savchenko@mail.ru");
         signInSignUpPage.enterUserPass("471666");
@@ -52,14 +57,12 @@ public class LoginTest {
     @Test
     private void logInWithInValidData() {
 
-        mainPage.goToMainPage();
-        mainPage.goToSignIn();
+
         System.out.println("Log In with INVALID DATA");
         signInSignUpPage.enterUserEmail("savchenko@mail.ru");
         signInSignUpPage.enterPassword("132132132132");
         signInSignUpPage.clickOnLogInButton();
-        WebDriverWait wait = (new WebDriverWait(driver, Duration.ofSeconds(10)));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'alert alert-danger alert-dismissable getAccAlert']")));
+
 
         Assert.assertNotNull(signInSignUpPage.getErrorText());
 
@@ -68,8 +71,7 @@ public class LoginTest {
     @Test
     private void registrationWithExistsEmail() {
 
-        mainPage.goToMainPage();
-        mainPage.goToSignIn();
+
         System.out.println("Registering with a registered email");
         signInSignUpPage.enterFirstName("Savchenko");
         signInSignUpPage.enterLastName("Dmytro");
@@ -78,16 +80,13 @@ public class LoginTest {
         signInSignUpPage.confirmPassword("paparazi29918");
         signInSignUpPage.clickOnCheckBoxTerms();
         signInSignUpPage.clickOnRegistrationButton();
-        WebDriverWait wait = (new WebDriverWait(driver, Duration.ofSeconds(10)));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='An account already exists for this email address.']")));
-        Assert.assertNotNull(signInSignUpPage.getAccountExistErrorElement());
+
+        Assert.assertNotNull(signInSignUpPage.getAccountExistError());
     }
 
     @Test
     private void registrationWithValidEmail() {
 
-        mainPage.goToMainPage();
-        mainPage.goToSignIn();
         System.out.println("Registering with a NEW email");
         signInSignUpPage.enterFirstName("Savchenko");
         signInSignUpPage.enterLastName("Dmytro");
