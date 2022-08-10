@@ -4,9 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public abstract class AbstractPage {
-    public WebDriver driver;
+
     public static final String BASIC_URL = "https://electronics-2005.aimprosoft.com/electronics/en";
-    private static final By SIGN_IN_PAGE = By.linkText(BASIC_URL +"/login");
+
+    public WebDriver driver;
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
@@ -19,6 +24,7 @@ public abstract class AbstractPage {
     public String getTitle() {
         return driver.getTitle();
     }
+
 
 
 }
