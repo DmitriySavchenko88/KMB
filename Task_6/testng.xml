@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Sign in Sign Up page" configfailurepolicy="continue" parallel="classes" thread-count="2" verbose="1">
+    <test name="Regression">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="com.aimprosoft.LoginTest">
+                <methods>
+                    <include name="initPages" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
