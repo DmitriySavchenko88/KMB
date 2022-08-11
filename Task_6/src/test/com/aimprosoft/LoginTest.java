@@ -37,24 +37,24 @@ public class LoginTest {
     }
 
     @Test
-    private void isDisplayedReturningCustomerText() {
+    private void verifyThatReturningCustomerTextIsDisplayed() {
         System.out.println("Go to Sign In Page");
         Assert.assertEquals(signUpForm.getReturningCustomerText(), "Returning Customer", "Sign in page doesn't has 'Returning Customer' text");
     }
 
     @Test
-    private void logInWithValidData() {
+    private void verifyThatMyAccountTextIsDisplayedOnTheButton() {
 
         System.out.println("Log In with Valid DATA");
         signInForm.enterUserEmail("azabraza@mail.com");
         signInForm.enterUserPass("471666");
         signInForm.clickOnLogInButton();
-        Assert.assertEquals(mainPage.getDisplayedMyAccountButtonText(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
+        Assert.assertEquals(mainPage.getMyAccountButtonTex(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
 
     }
 
     @Test
-    private void logInWithInValidData() {
+    private void verifyThatErrorMassageIsDisplayedInSignInForm() {
 
 
         System.out.println("Log In with INVALID DATA");
@@ -68,7 +68,7 @@ public class LoginTest {
     }
 
     @Test
-    private void registrationWithExistsEmail() {
+    private void verifyThatExistsEmailTextIsDisplayedInSignUpForm() {
 
 
         System.out.println("Registering with a registered email");
@@ -84,7 +84,7 @@ public class LoginTest {
     }
 
     @Test
-    private void registrationWithValidEmail() {
+    private void verifyThatMyAccountTextIsDisplayedOnTheButtonAfterRegistration() {
 
         System.out.println("Registering with a NEW email");
         signUpForm.enterFirstName("Savchenko");
@@ -95,6 +95,6 @@ public class LoginTest {
         signUpForm.clickOnTermsCheckbox();
         signUpForm.clickOnRegistrationButton();
 
-        Assert.assertEquals(mainPage.getDisplayedMyAccountButtonText(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
+        Assert.assertEquals(mainPage.getMyAccountButtonTex(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
     }
 }
