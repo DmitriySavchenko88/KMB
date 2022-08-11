@@ -35,7 +35,10 @@ public class LoginTest {
         signInForm = new SignInForm(driver);
         driver.manage().window().maximize();
     }
-
+    @AfterTest
+    public void closeDriver(){
+        driver.close();
+    }
     @Test
     private void verifyThatReturningCustomerTextIsDisplayed() {
         System.out.println("Go to Sign In Page");
