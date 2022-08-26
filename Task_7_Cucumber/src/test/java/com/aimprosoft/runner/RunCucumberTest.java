@@ -8,8 +8,8 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         plugin = {"pretty"},
         tags = "",
-        features = "src/test/resources/feature",
-        glue = "src/test/java/com/aimprosoft/definitions/"
+        features = "src/test/resources/features/ProductListPage.feature",
+        glue = "com/aimprosoft/definitions"
 )
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
 
