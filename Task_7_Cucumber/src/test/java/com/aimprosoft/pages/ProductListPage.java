@@ -15,14 +15,14 @@ public class ProductListPage extends AbstractPage {
     private static final By WEB_CAMERAS_BUTTON = By.xpath("//a[@title='Webcams']");
     private static final By WEB_CAMERAS_TITLE = By.xpath("//li[contains(@class, 'active') and text() = 'Webcams']");
     private static final By OPEN_CATALOGUE_CAPTION = By.xpath("//li[@class='active' and contains(text(),'Open Catalogue')] ");
-    private static final By POP_UP_WINDOW_WITH_PRODUCT_ADDED_TO_CART = By.id("cboxLoadedContent");
+
     private static final By PRODUCT_NAME = By.xpath("//em[contains(@class, 'search-results-highlight') and text() = 'Blue']");
     private static final By CONTINUE_SHOPPING_BUTTON = By.xpath("//a[@class='btn btn-default btn-block js-mini-cart-close-button']");
     private static final By CHECK_OUT_BUTTON = By.xpath("//a[@class='btn btn-primary btn-block add-to-cart-button']");
     private static final By PRODUCT_PHOTO = By.xpath("//img[@alt='Camileo H20 EU']");
     private static final By PRISE_CHECK_BOX = By.xpath("(//span[@class='facet__list__mark'])[1]");
 
-    //private static final By SHOP_BY_BRAND_BUTTON = By.xpath("//span[@class='facet__text'])[10]");
+
 
 
     public ProductListPage(WebDriver driver) {
@@ -61,13 +61,6 @@ public class ProductListPage extends AbstractPage {
         driver.findElement(PRISE_CHECK_BOX).click();
     }
 
-/*    public void clickOnAddToShoppingCartButton() {
-        driver.findElement(ADD_TO_SHOPPING_CART_BUTTON).click();
-    }
-
-    public void clickOnShopByBrandButton() {
-        driver.findElement(SHOP_BY_BRAND_BUTTON).click();
-    }*/
 
     public String getOpenCatalogueText() {
         return driver.findElement(OPEN_CATALOGUE_CAPTION).getText();

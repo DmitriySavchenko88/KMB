@@ -1,5 +1,7 @@
 package com.aimprosoft.runner;
 
+
+
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.Test;
@@ -8,11 +10,10 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         plugin = {"pretty"},
         tags = "",
-        features = "src/test/resources/features/ProductListPage.feature",
+        features = "src/test/resources/features",
         glue = "com/aimprosoft/definitions"
 )
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
-
 
 }
 

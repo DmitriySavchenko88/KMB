@@ -1,9 +1,8 @@
 package com.aimprosoft.driverManager;
 
+
 import com.aimprosoft.utils.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,17 +17,16 @@ public class DriverManager {
         String driverName = ConfigProperties.getProperty("browser");
 
         switch (driverName) {
-            case "chrome" -> {
+            case "chrome" : {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
                 return new ChromeDriver();
             }
-            case "mozilla firefox" -> {
+            case "mozilla firefox" : {
                 WebDriverManager.firefoxdriver().setup();
                 return new FirefoxDriver();
             }
-            default -> throw new IllegalArgumentException("Incorrect BrowserName");
-
+            default : throw new IllegalArgumentException("Incorrect BrowserName");
         }
     }
 

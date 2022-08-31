@@ -1,30 +1,42 @@
 package com.aimprosoft.definitions;
 
+
 import com.aimprosoft.driverManager.DriverManager;
 import com.aimprosoft.pages.AbstractPage;
+import com.aimprosoft.pages.MainPage;
 import com.aimprosoft.pages.ProductListPage;
+import com.aimprosoft.pages.SignInForm;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 public class StepDefinitions {
     ProductListPage productListPage;
+    SignInForm signInForm;
+    MainPage mainPage;
     WebDriver driver;
+
     @Before
     public void initPage() throws Exception {
 
         driver = DriverManager.getWebDriver();
         productListPage = new ProductListPage(driver);
+        signInForm = new SignInForm(driver);
+        mainPage = new MainPage(driver);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
+
     @Given("Product list page is opened")
     public void product_list_page_is_opened() {
-        driver.get(AbstractPage.BASIC_URL);
+        driver.get(AbstractPage.BASIC_URL + "Open-Catalogue/c/1");
 
 
     }
@@ -62,6 +74,31 @@ public class StepDefinitions {
     public void the_page_displays_webcams() {
         Assert.assertEquals(productListPage.getWebCamerasTextFromTitleOfProductListPage(), "WEBCAMS");
 
+    }
+
+    @Given("Sign in form is opened")
+    public void signInFormIsOpened() {
+        driver.get(AbstractPage.BASIC_URL+"login");
+    }
+
+    @When("Users enters the information as follows")
+    public void usersEntersTheInformationAsFollows(List<Map<String, String>> dataTable) {
+        for (Map<String, String> form : dataTable) {
+            String email = form.get("Email");
+            signInForm.enterUserEmail(email);
+            String pass = form.get("Pass");
+            signInForm.enterUserPass(pass);
+        }
+    }
+
+    @And("Click on the LogIn button")
+    public void clickOnTheLogInButton() {
+        signInForm.clickOnLogInButton();
+    }
+
+    @Then("My Account button is displayed on the Main page")
+    public void welcomeMassageIsDisplayInTheHOMEPage() {
+        Assert.assertEquals(mainPage.getMyAccountButtonTex(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
     }
 
 
