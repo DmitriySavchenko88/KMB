@@ -9,73 +9,41 @@ import org.openqa.selenium.support.PageFactory;
 public class ProductListPage extends AbstractPage {
 
     private static final By SEARCH_FIELD = By.id("js-site-search-input");
-
-    private static final By FILM_CAMERAS_BUTTON = By.xpath("//a[@title='Film Cameras']");
-    private static final By FILM_CAMERAS_TITLE = By.xpath("//li[contains(@class, 'active') and text() = 'Film cameras']");
-    private static final By WEB_CAMERAS_BUTTON = By.xpath("//a[@title='Webcams']");
-    private static final By WEB_CAMERAS_TITLE = By.xpath("//li[contains(@class, 'active') and text() = 'Webcams']");
-    private static final By OPEN_CATALOGUE_CAPTION = By.xpath("//li[@class='active' and contains(text(),'Open Catalogue')] ");
-
-    private static final By PRODUCT_NAME = By.xpath("//em[contains(@class, 'search-results-highlight') and text() = 'Blue']");
-    private static final By CONTINUE_SHOPPING_BUTTON = By.xpath("//a[@class='btn btn-default btn-block js-mini-cart-close-button']");
-    private static final By CHECK_OUT_BUTTON = By.xpath("//a[@class='btn btn-primary btn-block add-to-cart-button']");
-    private static final By PRODUCT_PHOTO = By.xpath("//img[@alt='Camileo H20 EU']");
-    private static final By PRISE_CHECK_BOX = By.xpath("(//span[@class='facet__list__mark'])[1]");
-
-
-
+    private static final By PRODUCT_NAME = By.xpath("(//em[@class = 'search-results-highlight'])[2]");
 
     public ProductListPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-
-
     }
 
-    public void clickOnFilmCamerasHeadersButton() {
-        driver.findElement(FILM_CAMERAS_BUTTON).click();
+    public static By getButtonXpath(String nameButton) {
+        return By.xpath("//a[@title='" + nameButton + "']");
     }
 
-    public void clickOnWebCamerasHeaderButton() {
-        driver.findElement(WEB_CAMERAS_BUTTON).click();
+    public static By gerTitleXpath(String title) {
+        return By.xpath("//li[contains(@class, 'active') and text() = '" + title + "']");
     }
 
-    public void enterProductName(String productName) {
-
-        driver.findElement(SEARCH_FIELD).sendKeys(productName + Keys.ENTER);
+    public void clickOnProductHeadersButton(String productName) {
+        driver.findElement(getButtonXpath(productName)).click();
     }
 
-    public void enterContinueShoppingButton() {
-        driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+    public void enterProductName() {
+
+        driver.findElement(SEARCH_FIELD).sendKeys("DSC-H20 Blue" + Keys.ENTER);
     }
 
-    public void enterCheckOutButton() {
-        driver.findElement(CHECK_OUT_BUTTON).click();
-    }
-
-    public void clickOnProductPhoto() {
-        driver.findElement(PRODUCT_PHOTO).click();
-    }
-
-    public void clickOnPriceCheckBox() {
-        driver.findElement(PRISE_CHECK_BOX).click();
-    }
-
-
-    public String getOpenCatalogueText() {
-        return driver.findElement(OPEN_CATALOGUE_CAPTION).getText();
-
-    }
 
     public String getProductNameFromSearchList() {
         return driver.findElement(PRODUCT_NAME).getText();
     }
 
-    public String getFilmCamerasTextFromTitleOfProductListPage() {
-        return driver.findElement(FILM_CAMERAS_TITLE).getText();
+    public String getProductTextFromTitleOfProductListPage(String productName) {
+        return driver.findElement(gerTitleXpath(productName)).getText();
     }
 
-    public String getWebCamerasTextFromTitleOfProductListPage() {
-        return driver.findElement(WEB_CAMERAS_TITLE).getText();
+
+    public void goToProductListPage() {
+        driver.get(MainPage.BASIC_URL + "Open-Catalogue/c/1");
     }
 }
