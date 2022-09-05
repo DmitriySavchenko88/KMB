@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aimprosoft</groupId>
-    <artifactId>Task_7_Cucumber</artifactId>
+    <artifactId>taskcucumber</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 

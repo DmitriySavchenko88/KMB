@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class StepDefinitions {
-    public ProductListPage productListPage;
-    public SignInForm signInForm;
-    public MainPage mainPage;
-    public WebDriver driver;
+    private ProductListPage productListPage;
+    private SignInForm signInForm;
+    private MainPage mainPage;
+    private WebDriver driver;
 
     @Before
     public void initPage() throws Exception {
@@ -34,49 +34,35 @@ public class StepDefinitions {
 
     @Given("Product list page is opened")
     public void openProductListPage() {
-       productListPage.goToProductListPage();
-
-
+        productListPage.goToProductListPage();
     }
 
     @When("Customer searches for 'DSC-H20 Blue'")
     public void customerEntersAProductNameIntoTheInputFieldEndPressEnter() {
-        productListPage.enterProductName();
-
+        productListPage.enterProductName("DSC-H20 Blue");
     }
 
-    @Then("Product with name 'DSC-H20 Blue' is appeared in the product list on the site page")
+    @Then("Verify that Product with name 'DSC-H20 Blue' is appeared in the product list on the site page")
     public void theEnteredProductAppearsInTheProductListOnTheSitePage() {
-        Assert.assertEquals(productListPage.getProductNameFromSearchList(), "BLUE");
+        Assert.assertTrue(productListPage.isProductListContainName("DSC-H20"));
     }
 
-    @When("the user clicks on Film Cameras")
-    public void theUserClicksOnFilmCameras() {
-        productListPage.clickOnProductHeadersButton("Film Cameras");
-
-    }
-
-    @Then("the page displays Film Cameras")
-    public void thePageDisplaysFilmCameras() {
-        Assert.assertEquals(productListPage.getProductTextFromTitleOfProductListPage("Film cameras"), "FILM CAMERAS");
+    @When("^the user clicks on ([^\"]*)$")
+    public void theUserClicksOnFilmCameras(String category) {
+        productListPage.clickOnProductHeadersButton(category);
 
     }
 
-    @When("the user clicks on Webcams")
-    public void theUserClicksWebcams() {
-        productListPage.clickOnProductHeadersButton("Webcams");
+    @Then("^Verify that the ([^\"]*) is displayed$")
+    public void thePageDisplaysFilmCameras(String expectedTitle) {
+        Assert.assertEquals(productListPage.getProductTextFromTitleOfProductListPage("Webcams"), expectedTitle);
 
     }
 
-    @Then("the page displays Webcams")
-    public void thePageDisplaysWebcams() {
-        Assert.assertEquals(productListPage.getProductTextFromTitleOfProductListPage("Webcams"), "WEBCAMS");
 
-    }
-
-    @Given("Sign in form is opened")
+    @Given("Open Sign In page")
     public void signInFormIsOpened() {
-        driver.get(MainPage.BASIC_URL+"login");
+        driver.get(MainPage.BASIC_URL + "login");
     }
 
     @When("Users enters the information in Email and Password fields")
@@ -94,7 +80,7 @@ public class StepDefinitions {
         signInForm.clickOnLogInButton();
     }
 
-    @Then("My Account button is displayed on the Main page")
+    @Then("Verify that My Account button is displayed on the Main page")
     public void welcomeMassageIsDisplayInTheHOMEPage() {
         Assert.assertEquals(mainPage.getMyAccountButtonTex(), "MY ACCOUNT", "Main Page doesn't has My Account text on button");
     }

@@ -3,13 +3,16 @@ package com.aimprosoft.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 
 public class ProductListPage extends AbstractPage {
 
     private static final By SEARCH_FIELD = By.id("js-site-search-input");
-    private static final By PRODUCT_NAME = By.xpath("(//em[@class = 'search-results-highlight'])[2]");
+    private static final By LIST_OF_PRODUCT_NAMES = By.xpath("//em[@class = 'search-results-highlight']");
 
     public ProductListPage(WebDriver driver) {
         super(driver);
@@ -20,7 +23,7 @@ public class ProductListPage extends AbstractPage {
         return By.xpath("//a[@title='" + nameButton + "']");
     }
 
-    public static By gerTitleXpath(String title) {
+    public static By getTitleXpath(String title) {
         return By.xpath("//li[contains(@class, 'active') and text() = '" + title + "']");
     }
 
@@ -28,18 +31,30 @@ public class ProductListPage extends AbstractPage {
         driver.findElement(getButtonXpath(productName)).click();
     }
 
-    public void enterProductName() {
+    public void enterProductName(String productName) {
 
-        driver.findElement(SEARCH_FIELD).sendKeys("DSC-H20 Blue" + Keys.ENTER);
+        driver.findElement(SEARCH_FIELD).sendKeys(productName + Keys.ENTER);
     }
 
 
     public String getProductNameFromSearchList() {
-        return driver.findElement(PRODUCT_NAME).getText();
+        return driver.findElement(LIST_OF_PRODUCT_NAMES).getText();
     }
 
-    public String getProductTextFromTitleOfProductListPage(String productName) {
-        return driver.findElement(gerTitleXpath(productName)).getText();
+    public boolean isProductListContainName(String productName) {
+        List<WebElement> webElementList = driver.findElements(LIST_OF_PRODUCT_NAMES);
+        for (WebElement webElement : webElementList) {
+            String text = webElement.getText();
+            if (text.equals(productName)) {
+                return true;
+
+            }
+        }
+        return false;
+    }
+
+    public String getProductTextFromTitleOfProductListPage(String title) {
+        return driver.findElement(getTitleXpath(title)).getText();
     }
 
 
