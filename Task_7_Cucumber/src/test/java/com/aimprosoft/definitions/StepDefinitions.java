@@ -37,14 +37,14 @@ public class StepDefinitions {
         productListPage.goToProductListPage();
     }
 
-    @When("Customer searches for 'DSC-H20 Blue'")
-    public void customerEntersAProductNameIntoTheInputFieldEndPressEnter() {
-        productListPage.enterProductName();
+    @When("^Customer searches for (.*)$")
+    public void customerEntersAProductNameIntoTheInputFieldEndPressEnter(String searchTerm) {
+        productListPage.enterProductName(searchTerm);
     }
 
-    @Then("Verify that Product with name 'DSC-H20 Blue' is appeared in the product list on the site page")
-    public void theEnteredProductAppearsInTheProductListOnTheSitePage() {
-        Assert.assertTrue(productListPage.isProductListContainName());
+    @Then("^Verify that Product with name (.*) is appeared in the product list on the site page$")
+    public void theEnteredProductAppearsInTheProductListOnTheSitePage(String searchTerm) {
+        Assert.assertTrue(productListPage.isProductListContainName(searchTerm));
     }
 
     @When("^the user clicks on ([^\"]*)$")

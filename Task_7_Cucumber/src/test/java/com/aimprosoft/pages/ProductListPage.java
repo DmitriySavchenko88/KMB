@@ -32,9 +32,9 @@ public class ProductListPage extends AbstractPage {
         driver.findElement(getButtonXpath(productName)).click();
     }
 
-    public void enterProductName() {
+    public void enterProductName(String productName) {
 
-        driver.findElement(SEARCH_FIELD).sendKeys("DSC-H20 Blue" + Keys.ENTER);
+        driver.findElement(SEARCH_FIELD).sendKeys(productName + Keys.ENTER);
     }
 
 
@@ -42,9 +42,9 @@ public class ProductListPage extends AbstractPage {
         return driver.findElement(LIST_OF_PRODUCT_NAMES).getText();
     }
 
-    public boolean isProductListContainName() {
+    public boolean isProductListContainName(String productName) {
         List<WebElement> webElementList = driver.findElements(LIST_OF_PRODUCT_NAMES);
-        return webElementList.stream().anyMatch(webElement -> "DSC-H20".equals(webElement.getText()));
+        return webElementList.stream().anyMatch(webElement -> productName.equals(webElement.getText()));
     }
 
     public String getProductTextFromTitleOfProductListPage(String title) {
