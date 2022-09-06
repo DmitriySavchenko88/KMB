@@ -39,12 +39,12 @@ public class StepDefinitions {
 
     @When("Customer searches for 'DSC-H20 Blue'")
     public void customerEntersAProductNameIntoTheInputFieldEndPressEnter() {
-        productListPage.enterProductName("DSC-H20 Blue");
+        productListPage.enterProductName();
     }
 
     @Then("Verify that Product with name 'DSC-H20 Blue' is appeared in the product list on the site page")
     public void theEnteredProductAppearsInTheProductListOnTheSitePage() {
-        Assert.assertTrue(productListPage.isProductListContainName("DSC-H20"));
+        Assert.assertTrue(productListPage.isProductListContainName());
     }
 
     @When("^the user clicks on ([^\"]*)$")
@@ -54,16 +54,18 @@ public class StepDefinitions {
     }
 
     @Then("^Verify that the ([^\"]*) is displayed$")
-    public void thePageDisplaysFilmCameras(String expectedTitle) {
+    public void thePageDisplaysTitle(String expectedTitle) {
         Assert.assertEquals(productListPage.getProductTextFromTitleOfProductListPage("Webcams"), expectedTitle);
 
     }
+
 
 
     @Given("Open Sign In page")
     public void signInFormIsOpened() {
         driver.get(MainPage.BASIC_URL + "login");
     }
+
 
     @When("Users enters the information in Email and Password fields")
     public void usersEntersTheInformationAsFollows(List<Map<String, String>> dataTable) {

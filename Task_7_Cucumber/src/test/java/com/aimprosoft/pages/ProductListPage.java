@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 
 public class ProductListPage extends AbstractPage {
@@ -19,11 +20,11 @@ public class ProductListPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public static By getButtonXpath(String nameButton) {
+    private static By getButtonXpath(String nameButton) {
         return By.xpath("//a[@title='" + nameButton + "']");
     }
 
-    public static By getTitleXpath(String title) {
+    private static By getTitleXpath(String title) {
         return By.xpath("//li[contains(@class, 'active') and text() = '" + title + "']");
     }
 
@@ -31,9 +32,9 @@ public class ProductListPage extends AbstractPage {
         driver.findElement(getButtonXpath(productName)).click();
     }
 
-    public void enterProductName(String productName) {
+    public void enterProductName() {
 
-        driver.findElement(SEARCH_FIELD).sendKeys(productName + Keys.ENTER);
+        driver.findElement(SEARCH_FIELD).sendKeys("DSC-H20 Blue" + Keys.ENTER);
     }
 
 
@@ -41,16 +42,9 @@ public class ProductListPage extends AbstractPage {
         return driver.findElement(LIST_OF_PRODUCT_NAMES).getText();
     }
 
-    public boolean isProductListContainName(String productName) {
+    public boolean isProductListContainName() {
         List<WebElement> webElementList = driver.findElements(LIST_OF_PRODUCT_NAMES);
-        for (WebElement webElement : webElementList) {
-            String text = webElement.getText();
-            if (text.equals(productName)) {
-                return true;
-
-            }
-        }
-        return false;
+        return webElementList.stream().anyMatch(webElement -> "DSC-H20".equals(webElement.getText()));
     }
 
     public String getProductTextFromTitleOfProductListPage(String title) {
