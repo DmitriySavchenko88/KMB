@@ -1,46 +1,48 @@
 package com.aimprosoft.driverManager;
 
-
-import com.aimprosoft.utils.ConfigProperties;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 
 public class DriverManager {
-    private static WebDriver driver;
 
+    private static DriverManager instance = null;
+    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-    public static WebDriver getWebDriver() throws Exception {
-        if (driver != null) return driver;
-        String driverName = ConfigProperties.getProperty("browser");
+    private DriverManager() {
+    }
 
-        switch (driverName) {
-            case "chrome" : {
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                return new ChromeDriver();
-            }
-            case "mozilla firefox" : {
-                WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver();
-            }
-            default : throw new IllegalArgumentException("Incorrect BrowserName");
+    public static DriverManager getInstance() {
+        if (instance == null) {
+            instance = new DriverManager();
         }
+        return instance;
+    }
+
+    public static WebDriver getDriver(String browser) throws MalformedURLException {
+        if (driverThreadLocal.get() == null) {
+            String remoteUrl = "http://localhost:4444";
+            if (browser.equals("firefox")) {
+                Capabilities capabilities = new FirefoxOptions();
+                final WebDriver driver = new RemoteWebDriver(new URL(remoteUrl), capabilities);
+                driver.manage().window().maximize();
+                driver.manage().timeouts().pageLoadTimeout(10L, TimeUnit.SECONDS);
+                driverThreadLocal.set(driver);
+            }
+        }
+        return driverThreadLocal.get();
     }
 
     public static void closeDriver() {
-        driver.quit();
-        driver = null;
+        driverThreadLocal.get().quit();
+        driverThreadLocal.remove();
     }
-
 }
-
-
-
-
-
-
-
-

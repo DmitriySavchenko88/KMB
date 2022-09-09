@@ -24,7 +24,7 @@ public class StepDefinitions {
     @Before
     public void initPage() throws Exception {
 
-        driver = DriverManager.getWebDriver();
+        driver = DriverManager.getDriver("firefox");
         productListPage = new ProductListPage(driver);
         signInForm = new SignInForm(driver);
         mainPage = new MainPage(driver);
