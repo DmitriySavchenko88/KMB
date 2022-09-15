@@ -1,31 +1,38 @@
 pipeline {
-    agent any
-    environment {
-        MVN_GOAL = 'clean verify'
-        M2_HOME = '/usr/share/maven'
-        X_SCREEN = '1920x1080x16'
+  agent any
+  stages {
+    stage("verify tooling") {
+      steps {
+        sh '''
+          docker version
+          docker info
+          docker compose version
+          curl --version
+          jq --version
+        '''
+      }
     }
-    stages {
-        stage('Execute tests') {
-            steps {
-              script{allure includeProperties: false,
-              jdk: '',
-              results: [[path: 'target/allure-results']]}
-                }
-            }
-        }
+    stage('Prune Docker data') {
+      steps {
+        sh 'docker system prune -a --volumes -f'
+      }
     }
-
-    post {
-        always {
-            publishHTML(target: [
-                    reportName           : 'Report',
-                    reportDir            : 'target/site/serenity',
-                    reportFiles          : 'index.html',
-                    keepAll              : true,
-                    alwaysLinkToLastBuild: true,
-                    allowMissing         : false
-            ])
-        }
+    stage('Start container') {
+      steps {
+        sh 'docker compose up -d --no-color --wait'
+        sh 'docker compose ps'
+      }
     }
+    stage('Run tests against the container') {
+      steps {
+        sh 'curl http://localhost:3000/param?query=demo | jq'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker compose down --remove-orphans -v'
+      sh 'docker compose ps'
+    }
+  }
 }
