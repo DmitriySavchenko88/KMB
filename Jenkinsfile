@@ -1,38 +1,35 @@
 pipeline {
   agent any
+  environment {
+  COMPOSE_FILE = "docker-compose.yml"
+  }
+  tools {
+  maven "3.6.3"
+  jdk "11.0.16"
+  }
+
   stages {
     stage("verify tooling") {
       steps {
-        sh '''
-          docker version
-          docker info
-          docker compose version
-          curl --version
-          jq --version
-        '''
+        step([$class: 'DockerComposeBuilder', dockerComposeFile: 'Task_7_Cucumber/docker-compose.yml', option: [$class: 'ExecuteCommandInsideContainer', command: 'docker compose up', index: 1, privilegedMode: false, service: '', workDir: ''], useCustomDockerComposeFile: true])
       }
     }
-    stage('Prune Docker data') {
+    stage('run test') {
       steps {
-        sh 'docker system prune -a --volumes -f'
-      }
-    }
-    stage('Start container') {
-      steps {
-        sh 'docker compose up -d --no-color --wait'
-        sh 'docker compose ps'
-      }
-    }
-    stage('Run tests against the container') {
-      steps {
-        sh 'curl http://localhost:3000/param?query=demo | jq'
+        sh 'mvn -f Task_7_Cucumber/pom.xml clean test'
       }
     }
   }
-  post {
-    always {
-      sh 'docker compose down --remove-orphans -v'
-      sh 'docker compose ps'
-    }
-  }
-}
+  post("Allure report and Turn down docker") {
+              always {
+                  allure([
+                          includeProperties: false,
+                          jdk              : '',
+                          properties       : [],
+                          reportBuildPolicy: 'ALWAYS',
+                          results          : [[path: 'Task_7_Cucumber/target/allure-results']]
+                  ])
+                  step([$class: 'DockerBuilderControl', option: [$class: 'DockerBuilderControlOptionStopAll', remove: true]])
+              }
+          }
+      }
