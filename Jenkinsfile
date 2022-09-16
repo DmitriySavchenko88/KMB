@@ -4,8 +4,8 @@ pipeline {
   COMPOSE_FILE = "docker-compose.yml"
   }
   tools {
-  maven "3.6.3"
-  jdk "11.0.16"
+  maven "Maven 3.6.3"
+  jdk "jdk_9.0.4"
   }
 
   stages {
