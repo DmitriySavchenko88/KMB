@@ -1,4 +1,4 @@
-version: '20.10.17'
+version: '3.7'
 
 services:
   hub4:
@@ -24,6 +24,7 @@ services:
       - SE_NODE_MAX_SESSIONS=4
     ports:
       - "6901:5900"
+
   chromenode:
     image: selenium/node-chrome:4.0.0-20211025
     #    volumes:
