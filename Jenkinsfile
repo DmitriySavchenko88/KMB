@@ -9,11 +9,7 @@ pipeline {
   }
 
   stages {
-    stage("verify tooling") {
-      steps {
-        step([$class: 'DockerComposeBuilder', dockerComposeFile: 'Task_7_Cucumber/docker-compose.yml', option: [$class: 'ExecuteCommandInsideContainer', command: 'docker-compose up -d', index: 1, privilegedMode: false, service: '', workDir: ''], useCustomDockerComposeFile: true])
-      }
-    }
+
     stage('run test') {
       steps {
         sh 'mvn -f Task_7_Cucumber/pom.xml clean test'
