@@ -11,8 +11,7 @@ pipeline {
   stages {
     stage("verify tooling") {
       steps {
-      sh ‘docker-compose -f /home/dmytro.savchenko/IdeaProjects/KMB/Task_7_Cucumber/docker-compose.yml up --build’
-
+        step([$class: 'DockerComposeBuilder', dockerComposeFile: 'Task_7_Cucumber/docker-compose.yml', option: [$class: 'ExecuteCommandInsideContainer', command: 'docker-compose up -d', index: 1, privilegedMode: false, service: '', workDir: ''], useCustomDockerComposeFile: true])
       }
     }
     stage('run test') {
