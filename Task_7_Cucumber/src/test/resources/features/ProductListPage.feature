@@ -20,7 +20,7 @@ Feature: Check Product list page functionality
     Given Open Sign In page
     When Users enters the information in Email and Password fields
       | Email         | Pass   |
-      | rewq@mail.com | 471666 |
+      | rewq@mail.com | 4716662 |
     And Click on the LogIn button
     Then Verify that My Account button is displayed on the Main page
 
