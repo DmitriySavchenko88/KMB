@@ -92,12 +92,11 @@ public class PetStoreTests {
 
     @Test
 
-    public void successUserRegistration() {
+    public void checkThatUserCanBeRegistered() {
         SoftAssert softAssert = new SoftAssert();
 
-
-        String massage = "232323";
-        Integer code = 200;
+        String message = "232323";
+        Integer statusCode = 200;
         User user = new User(232323, "Dmytro88", "Dmytro", "Savchenko", "papamama@mail.com", "471666", "80661936660", 21);
         APIResponse APIResponse = given()
                 .body(user)
@@ -107,16 +106,18 @@ public class PetStoreTests {
                 .extract().as(APIResponse.class);
         softAssert.assertNotNull(APIResponse.getCode());
         softAssert.assertNotNull(APIResponse.getMessage());
-        softAssert.assertEquals(massage, APIResponse.getMessage());
-        softAssert.assertEquals(code, APIResponse.getCode());
+        softAssert.assertEquals(message, APIResponse.getMessage());
+        softAssert.assertEquals(statusCode, APIResponse.getCode());
 
     }
 
     @Test
 
-    public void unSuccessUserRegistration() {
+    public void checkThatUserCanBeRegisteredWithInvalidData() {
         Specifications.installSpecifications(Specifications.responseSpecOK500(), Specifications.requestSpec(URL));
-
+        String massage = "something bad happened";
+        SoftAssert softAssert = new SoftAssert();
+        APIResponse response = new APIResponse();
         Map<String, String> registrationBodyData = new HashMap<>();
         registrationBodyData.put("id", "qwerty");
         given()
@@ -125,5 +126,6 @@ public class PetStoreTests {
                 .post("/user")
                 .then().log().all();
 
+        softAssert.assertEquals(massage, response.getMessage());
     }
 }
