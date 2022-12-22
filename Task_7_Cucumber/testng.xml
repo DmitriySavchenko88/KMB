@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Product list page" configfailurepolicy="continue" parallel="classes" thread-count="2" verbose="1">
     <test name="Regression">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="firefox"/>
 
         <classes>
             <class name="com.aimprosoft.runner.RunCucumberTest">
